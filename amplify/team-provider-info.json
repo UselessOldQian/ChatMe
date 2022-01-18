@@ -9,11 +9,18 @@
       "UnauthRoleName": "amplify-chatme-staging-183727-unauthRole",
       "StackName": "amplify-chatme-staging-183727",
       "StackId": "arn:aws:cloudformation:us-east-1:385568657974:stack/amplify-chatme-staging-183727/b01ec090-788d-11ec-b191-0a00ce22cdb9",
-      "AmplifyAppId": "d1a7r8yxa56n24"
+      "AmplifyAppId": "d1a7r8yxa56n24",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-chatme-staging-183727-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
         "chatMe": {}
+      },
+      "function": {
+        "chatMePostConfirmation": {
+          "deploymentBucketName": "amplify-chatme-staging-183727-deployment",
+          "s3Key": "amplify-builds/chatMePostConfirmation-666f796577696a675671-build.zip"
+        }
       }
     }
   }
