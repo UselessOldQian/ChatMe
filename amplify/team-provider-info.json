@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-chatme-staging-183727-authRole",
+      "UnauthRoleArn": "arn:aws:iam::385568657974:role/amplify-chatme-staging-183727-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::385568657974:role/amplify-chatme-staging-183727-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-chatme-staging-183727-deployment",
+      "UnauthRoleName": "amplify-chatme-staging-183727-unauthRole",
+      "StackName": "amplify-chatme-staging-183727",
+      "StackId": "arn:aws:cloudformation:us-east-1:385568657974:stack/amplify-chatme-staging-183727/b01ec090-788d-11ec-b191-0a00ce22cdb9",
+      "AmplifyAppId": "d1a7r8yxa56n24"
+    },
+    "categories": {
+      "auth": {
+        "chatMe": {}
+      }
+    }
+  }
+}
