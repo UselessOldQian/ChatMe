@@ -1,39 +1,61 @@
-import React from 'react';
-import { Text, View,StyleSheet } from 'react-native'
+import React, {useState, useEffect} from 'react';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { DataStore } from '@aws-amplify/datastore';
+import { User } from '../../src/models';
+import { Auth } from 'aws-amplify';
 
-export default function Message({message}) {
-    const myId = 'u1';
-    const {user,content} = message;
-    const isMe = myId===user.id;
-    const blue = '#3777f0';
-    const grey = 'lightgrey';
+const blue = '#3777f0';
+const grey = 'lightgrey';
 
-    return (
-        <View style={[
-            styles.container, {
-                backgroundColor:isMe ? grey : blue,
-                marginLeft:isMe ? 'auto':10,
-                marginRight:isMe ? 10:'auto'
-            }
-            ]}>
-            <Text style={[styles.text, {color:isMe ? 'black' : 'white'}]}>
-                {content}
-            </Text>
-        </View>
+const myID = 'u1';
 
-    )
+const Message = ({ message }) => {
+  const [user, setUser] = useState<User|undefined>();
+  const [isMe, setIsMe] = useState<boolean>(false);
+
+  useEffect(() => {
+    DataStore.query(User, message.userID).then(setUser);
+  }, []);
+
+  useEffect(() => {
+    const checkIfMe = async () => {
+      if (!user) {
+        return;
+      }
+      const authUser = await Auth.currentAuthenticatedUser();
+      setIsMe(user.id === authUser.attributes.sub);
+    }
+    checkIfMe();
+  }, [user])
+
+  if (!user) {
+    return <ActivityIndicator />
+  }
+
+  return (
+    <View style={[styles.container, isMe ? styles.rightContainer : styles.leftContainer]}>
+      <Text style={{ color: isMe ? 'black' : 'white'}}>{message.content}</Text>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor:'#3777f0',
-        padding: 10,
-        margin: 10,
-        borderRadius: 10,
-        maxWidth: '75%'
-    },
-    text: {
-        color: 'white'
-    }
-})
+  container: {
+    padding: 10,
+    margin: 10,
+    borderRadius: 10,
+    maxWidth: '75%',
+  },
+  leftContainer: {
+    backgroundColor: blue,
+    marginLeft: 10,
+    marginRight: 'auto'
+  },
+  rightContainer: {
+    backgroundColor: grey,
+    marginLeft: 'auto',
+    marginRight: 10,
+  }
+});
 
+export default Message;
